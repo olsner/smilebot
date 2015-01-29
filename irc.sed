@@ -1,4 +1,6 @@
 #!/bin/sed -runf
+# Run like this:
+# socat EXEC:./irc.sed TCP:host:port,crnl
 
 1 b boot
 
