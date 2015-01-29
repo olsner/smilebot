@@ -11,11 +11,16 @@ s/^:([^ ]*) .*$/\1/
 # Swap hold and pattern space (hold space now has the prefix, pattern space the original string)
 x
 s/^:[^ ]* //
-# w /dev/stderr
+# Prefix (sender) removed - now saved only in holdspace
+#w /dev/stderr
 
 # Match between MOTDSTART and MOTDEND
 /^375/,/^376/ {
 w motd.txt
+}
+/^376/ {
+i\
+PRIVMSG olsner :Hello
 }
 
 /^PING/ {
@@ -29,9 +34,16 @@ w motd.txt
 		s/.*/QUIT :I'm done/p
 		# Q 0
 	}
-	s/^PRIVMSG +(sedbot +:|[^ ]+ +:?sedbot[:,] )JOIN (.*)\nolsner!.*$/JOIN \2/p
-	s/^PRIVMSG +(sedbot +:|[^ ]+ +:?sedbot[:,] )(.*)\n(.*)!.*$/PRIVMSG \3 :Du kan vara \2/p
+	# TODO Make a common bit for command messages, so this could be something
+	# like /^JOIN/ instead...
+	s/^PRIVMSG +(sedbot) +:JOIN (.*)\nolsner!.*$/JOIN \2/p
+	s/^PRIVMSG +(sedbot) +:MSG ([^ ]+) (.*)\nolsner!.*$/PRIVMSG \2 :\3/p
+	s/^PRIVMSG +([^ ]+) +:sedbot[:,] JOIN (.*)\nolsner!.*$/JOIN \2/p
 
+	# Public commands
+	# TODO Simplify to destination and command
+	s/^PRIVMSG +(sedbot) +:(.*)\n(.*)!.*$/PRIVMSG \3 :Du kan vara \2/p
+	s/^PRIVMSG +([^ ]+) +:sedbot[:,] (.*)\n(.*)!.*$/PRIVMSG \1 :Du kan vara \2/p
 }
 
 
