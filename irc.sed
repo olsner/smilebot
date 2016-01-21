@@ -21,8 +21,8 @@ s/^:[^ ]* //
 w motd.txt
 }
 /^376/ {
-i\
-PRIVMSG olsner :Hello
+#i\
+#PRIVMSG olsner :Hello
 }
 
 /^PING/ {
@@ -32,20 +32,23 @@ PRIVMSG olsner :Hello
 /^PRIVMSG/ {
 	G
 
-	/^PRIVMSG +(sedbot +:|[^ ]+ :sedbot[:,] )QUIT\nolsner!.*$/ {
+	/^PRIVMSG +(smilebot +:|[^ ]+ :smilebot[:,] )QUIT\nolsner!.*$/ {
 		s/.*/QUIT :I'm done/p
 		# Q 0
 	}
 	# TODO Make a common bit for command messages, so this could be something
 	# like /^JOIN/ instead...
-	s/^PRIVMSG +(sedbot) +:JOIN (.*)\nolsner!.*$/JOIN \2/p
-	s/^PRIVMSG +(sedbot) +:MSG ([^ ]+) (.*)\nolsner!.*$/PRIVMSG \2 :\3/p
-	s/^PRIVMSG +([^ ]+) +:sedbot[:,] JOIN (.*)\nolsner!.*$/JOIN \2/p
+	s/^PRIVMSG +(smilebot) +:JOIN (.*)\nolsner!.*$/JOIN \2/p
+	s/^PRIVMSG +(smilebot) +:PART (.*)\nolsner!.*$/PART \2/p
 
-	# Public commands
-	# TODO Simplify to destination and command
-	s/^PRIVMSG +(sedbot) +:(.*)\n(.*)!.*$/PRIVMSG \3 :Du kan vara \2/p
-	s/^PRIVMSG +([^ ]+) +:sedbot[:,] (.*)\n(.*)!.*$/PRIVMSG \1 :Du kan vara \2/p
+	s/^PRIVMSG +([^ ]+) +:smilebot[:,] JOIN (.*)\nolsner!.*$/JOIN \2/p
+	s/^PRIVMSG +([^ ]+) +:smilebot[:,] PART (.*)\nolsner!.*$/PART \2/p
+
+	s/^PRIVMSG +(smilebot) +:MSG ([^ ]+) (.*)\nolsner!.*$/PRIVMSG \2 :\3/p
+
+	/^PRIVMSG +[^ ]+ ::D\n/d
+	#s/^PRIVMSG +([^ ]+) [^\n]*\n(.*)$/MODE \2 +b \1 ::D/p
+	s/^PRIVMSG +([^ ]+) [^\n]*\n([^!]*)!.*$/KICK \1 \2 ::D/p
 }
 
 
@@ -55,7 +58,8 @@ b main
 : boot
 # First, some setup - set a nick-name
 i\
-USER sedbot localhost foo :sed IRC bot\
-NICK sedbot
+USER smilebot localhost foo :Don't worry, be happy\
+NICK smilebot\
+JOIN #osdev-offtopic/:D
 
 b main
