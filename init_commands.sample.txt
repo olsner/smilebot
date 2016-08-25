@@ -1,0 +1,3 @@
+USER foo localhost foo :Don't worry, be happy
+NICK foo
+JOIN #somestupidchannel

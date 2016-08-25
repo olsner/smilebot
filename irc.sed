@@ -59,9 +59,6 @@ b main
 
 : boot
 # First, some setup - set a nick-name
-i\
-USER smilebot localhost foo :Don't worry, be happy\
-NICK smilebot\
-JOIN ##:D
+r init_commands.txt
 
 b main
