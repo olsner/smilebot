@@ -34,7 +34,7 @@ w motd.txt
 
 	/^PRIVMSG +(smilebot +:|[^ ]+ :smilebot[:,] )QUIT\nolsner!.*$/ {
 		s/.*/QUIT :I'm done/p
-		# Q 0
+		Q 0
 	}
 	# TODO Make a common bit for command messages, so this could be something
 	# like /^JOIN/ instead...
