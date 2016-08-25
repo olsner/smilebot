@@ -60,6 +60,6 @@ b main
 i\
 USER smilebot localhost foo :Don't worry, be happy\
 NICK smilebot\
-JOIN #osdev-offtopic/:D
+JOIN ##:D
 
 b main
