@@ -47,9 +47,14 @@ w motd.txt
 	s/^PRIVMSG +(smilebot) +:MSG ([^ ]+) (.*)\nolsner!.*$/PRIVMSG \2 :\3/p
 
 	/^PRIVMSG +[^ ]+ ::D\n/d
-	/^NOTICE +[^ ]+ ::D\n/d
 	#s/^PRIVMSG +([^ ]+) [^\n]*\n(.*)$/MODE \2 +b \1 ::D/p
 	s/^PRIVMSG +([^ ]+) [^\n]*\n([^!]*)!.*$/KICK \1 \2 ::D/p
+}
+
+/^NOTICE/ {
+	G
+
+	/^NOTICE +[^ ]+ ::D\n/d
 	s/^NOTICE +([^ ]+) [^\n]*\n([^!]*)!.*$/KICK \1 \2 ::D/p
 }
 
