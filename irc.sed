@@ -38,8 +38,8 @@ w motd.txt
 	}
 	# TODO Make a common bit for command messages, so this could be something
 	# like /^JOIN/ instead...
-	s/^PRIVMSG +(smilebot) +:JOIN (.*)\nolsner!.*$/JOIN \2/p
-	s/^PRIVMSG +(smilebot) +:PART (.*)\nolsner!.*$/PART \2/p
+	s/^PRIVMSG +smilebot(![^ ]*)? +:JOIN (.*)\nolsner!.*$/JOIN \2/p
+	s/^PRIVMSG +smilebot(![^ ]*)? +:PART (.*)\nolsner!.*$/PART \2/p
 
 	s/^PRIVMSG +([^ ]+) +:smilebot[:,] JOIN (.*)\nolsner!.*$/JOIN \2/p
 	s/^PRIVMSG +([^ ]+) +:smilebot[:,] PART (.*)\nolsner!.*$/PART \2/p
