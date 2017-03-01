@@ -53,7 +53,7 @@ w motd.txt
 	#/^PRIVMSG +[^ ]+ :\xe2\x80\x8b:D\n/d
 	/^PRIVMSG +[^ ]+ ::D\n/d
 	#s/^PRIVMSG +([^ ]+) [^\n]*\n(.*)$/MODE \2 +b \1 ::D/p
-	s/^PRIVMSG +([^ ]+) [^\n]*\n([^!]*)!.*$/KICK \1 \2 ::D/p
+	s/^PRIVMSG +([^ ]+) [^\n]*\n([^!]*)!.*$/KICK \1 \2 ::D\nINVITE \2 \1/p
 }
 
 /^NOTICE/ {
