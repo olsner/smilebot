@@ -68,7 +68,9 @@ n
 b main
 
 : boot
-# First, some setup - set a nick-name
+# We need an i\ before r to bootstrap things for some reason
+i\
+USER smilebot localhost foo :Don't worry, be happy
 r init_commands.txt
 
 b main
